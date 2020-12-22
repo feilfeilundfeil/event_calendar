@@ -1,5 +1,4 @@
 import 'package:event_calendar/event_calendar.dart';
-import 'package:event_calendar/event_model.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -153,6 +152,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     events.add(event14);
 
-    EventModel.setListAndUpdateMap(events);
+    EventModel.setEventList(events);
   }
 }

@@ -1,4 +1,4 @@
-import 'package:event_calendar/month_view.dart';
+import 'package:event_calendar/src/month_view.dart';
 import 'package:flutter/material.dart';
 
 class MonthPageView extends StatelessWidget {

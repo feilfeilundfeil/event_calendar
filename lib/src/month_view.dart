@@ -1,9 +1,10 @@
-import 'package:event_calendar/day_container.dart';
-import 'package:event_calendar/event_item.dart';
-import 'package:event_calendar/more_events.dart';
+import 'package:event_calendar/src/day_container.dart';
+import 'package:event_calendar/src/event_item.dart';
+import 'package:event_calendar/src/more_events.dart';
+import 'package:event_calendar/src/utilities/calendar_utils.dart';
+import 'package:event_calendar/src/week_view.dart';
 import 'package:flutter/material.dart';
-import 'event_model.dart';
-import 'calendar_utils.dart';
+import 'models/event_model.dart';
 
 final double dateTxtHt = 30;
 final double eventItemHt = 20;
@@ -35,7 +36,13 @@ class _MonthViewState extends State<MonthView> {
       children: [
         Column(
           children: [
-            for (int i = 0; i < numberOfWeeksInMonth; i++) getWeek(i),
+            for (int i = 0; i < numberOfWeeksInMonth; i++)
+              WeekView(
+                weekNumber: i,
+                currentMonthDate: widget.currentMonthDate,
+                width: widget.dayWidgetSize.width,
+                height: widget.dayWidgetSize.height,
+              ),
           ],
         ),
       ],
@@ -43,11 +50,17 @@ class _MonthViewState extends State<MonthView> {
   }
 
   Widget getWeek(int weekNumber) {
-    int daysBeforeStart = getPaddingBeforeStartDayOfMonth();
-    int noOfDaysTillPastWeek = (weekNumber) * 7 - daysBeforeStart;
-    setEventsInWeekWithStartDate(noOfDaysTillPastWeek + 1);
+    // int daysBeforeStart = getPaddingBeforeStartDayOfMonth();
+    // int noOfDaysTillPastWeek = (weekNumber) * 7 - daysBeforeStart;
+    // setEventsInWeekWithStartDate(noOfDaysTillPastWeek + 1);
     return Container(
-      child: createChildren(noOfDaysTillPastWeek + 1),
+      // child: createChildren(noOfDaysTillPastWeek + 1),
+      child: WeekView(
+        currentMonthDate: widget.currentMonthDate,
+        weekNumber: weekNumber,
+        height: widget.dayWidgetSize.height,
+        width: widget.dayWidgetSize.width,
+      ),
     );
   }
 
