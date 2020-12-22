@@ -36,13 +36,7 @@ class _MonthViewState extends State<MonthView> {
       children: [
         Column(
           children: [
-            for (int i = 0; i < numberOfWeeksInMonth; i++)
-              WeekView(
-                weekNumber: i,
-                currentMonthDate: widget.currentMonthDate,
-                width: widget.dayWidgetSize.width,
-                height: widget.dayWidgetSize.height,
-              ),
+            for (int i = 0; i < numberOfWeeksInMonth; i++) getWeek(i),
           ],
         ),
       ],
@@ -50,17 +44,11 @@ class _MonthViewState extends State<MonthView> {
   }
 
   Widget getWeek(int weekNumber) {
-    // int daysBeforeStart = getPaddingBeforeStartDayOfMonth();
-    // int noOfDaysTillPastWeek = (weekNumber) * 7 - daysBeforeStart;
-    // setEventsInWeekWithStartDate(noOfDaysTillPastWeek + 1);
+    int daysBeforeStart = getPaddingBeforeStartDayOfMonth();
+    int noOfDaysTillPastWeek = (weekNumber) * 7 - daysBeforeStart;
+    setEventsInWeekWithStartDate(noOfDaysTillPastWeek + 1);
     return Container(
-      // child: createChildren(noOfDaysTillPastWeek + 1),
-      child: WeekView(
-        currentMonthDate: widget.currentMonthDate,
-        weekNumber: weekNumber,
-        height: widget.dayWidgetSize.height,
-        width: widget.dayWidgetSize.width,
-      ),
+      child: createChildren(noOfDaysTillPastWeek + 1),
     );
   }
 
