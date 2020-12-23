@@ -7,12 +7,14 @@ class MonthPageView extends StatelessWidget {
     @required this.controller,
     this.size,
     this.date,
+    this.onMoreEventsTapped,
   });
 
   final Function(int) onPageChanged;
   final PageController controller;
   final Size size;
   final DateTime date;
+  final VoidCallback onMoreEventsTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class MonthPageView extends StatelessWidget {
         return MonthView(
           dayWidgetSize: size,
           currentMonthDate: date,
+          onMoreEventsTapped: onMoreEventsTapped,
         );
       },
     );

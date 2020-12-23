@@ -1,22 +1,28 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:event_calendar/event_calendar.dart';
 import 'package:event_calendar/src/month_pageview.dart';
 import 'package:event_calendar/src/utilities/calendar_utils.dart';
 import 'package:flutter/material.dart';
 
 class EventCalendar extends StatefulWidget {
-  final List<String> weekDays;
-  final Size calendarSize;
-  final Widget previous;
-  final Widget next;
-  final TextStyle headerStyle;
   EventCalendar({
     this.weekDays,
     this.calendarSize,
     this.previous,
     this.next,
     this.headerStyle,
+    this.onMoreEventsTapped,
+    this.events,
   });
+
+  final List<String> weekDays;
+  final Size calendarSize;
+  final Widget previous;
+  final Widget next;
+  final TextStyle headerStyle;
+  final VoidCallback onMoreEventsTapped;
+  final List<EventModel> events;
   @override
   _EventCalendarState createState() => _EventCalendarState();
 }
@@ -31,6 +37,8 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
 
   @override
   void initState() {
+    EventModel.setEventList(widget.events);
+
     _controller = PageController(
       initialPage: _previousIndex,
       keepPage: false,
@@ -38,7 +46,7 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
     );
 
     final size = widget.calendarSize ?? MediaQuery.of(context).size;
-    _itemHeight = (size.height - kBottomNavigationBarHeight - kToolbarHeight - (Platform.isAndroid ? 120 : 280)) /
+    _itemHeight = (size.height - kBottomNavigationBarHeight - kToolbarHeight - (Platform.isAndroid ? 120 : _iosSize)) /
         getNumberOfWeeksInMonth(_currentDate);
     _itemWidth = size.width / 7;
 
@@ -50,6 +58,19 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  double get _iosSize {
+    final height = widget.calendarSize.height ?? MediaQuery.of(context).size.height;
+    if (height < 667.0) {
+      return 0.0; // iphone 5s
+    } else if (height == 667.0) {
+      return 80.0; // iphone SE
+    } else if (height <= 812.0) {
+      return 250.0; // iphone X, 11, 12 etc.
+    } else {
+      return 280.0; // iphone 11 Max, 12 Max etc.
+    }
   }
 
   @override
@@ -148,6 +169,7 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
               controller: _controller,
               size: Size(_itemWidth, _itemHeight),
               date: _currentDate,
+              onMoreEventsTapped: widget.onMoreEventsTapped,
             ),
           ),
         ],
