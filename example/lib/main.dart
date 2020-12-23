@@ -27,7 +27,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final events = [
       EventModel(
-        onSelect: () => print('Action Tapped: Meeting 1'),
         title: 'Meeting 1',
         startTime: DateTime(2020, 11, 1),
         endTime: DateTime(2020, 12, 5),

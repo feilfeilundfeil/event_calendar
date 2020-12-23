@@ -14,6 +14,8 @@ class EventCalendar extends StatefulWidget {
     this.headerStyle,
     this.onMoreEventsTapped,
     this.events,
+    this.moreEventsBannerTextStyle,
+    this.moreEventsBackgroundColor,
   });
 
   final List<String> weekDays;
@@ -23,6 +25,9 @@ class EventCalendar extends StatefulWidget {
   final TextStyle headerStyle;
   final VoidCallback onMoreEventsTapped;
   final List<EventModel> events;
+  final TextStyle moreEventsBannerTextStyle;
+  final Color moreEventsBackgroundColor;
+
   @override
   _EventCalendarState createState() => _EventCalendarState();
 }
@@ -170,6 +175,8 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
               size: Size(_itemWidth, _itemHeight),
               date: _currentDate,
               onMoreEventsTapped: widget.onMoreEventsTapped,
+              moreEventsBackgroundColor: widget.moreEventsBackgroundColor,
+              moreEventsBannerTextStyle: widget.moreEventsBannerTextStyle,
             ),
           ),
         ],

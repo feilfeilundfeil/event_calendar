@@ -12,11 +12,15 @@ class MonthView extends StatefulWidget {
     @required this.currentMonthDate,
     @required this.dayWidgetSize,
     this.onMoreEventsTapped,
+    this.moreEventsBackgroundColor,
+    this.moreEventsBannerTextStyle,
   });
 
   final DateTime currentMonthDate;
   final Size dayWidgetSize;
   final VoidCallback onMoreEventsTapped;
+  final TextStyle moreEventsBannerTextStyle;
+  final Color moreEventsBackgroundColor;
 
   @override
   _MonthViewState createState() => _MonthViewState();
@@ -174,6 +178,8 @@ class _MonthViewState extends State<MonthView> {
                 },
                 value: sorted.length - numberOfEventsToDisplay,
                 size: size,
+                backgroundColor: widget.moreEventsBackgroundColor,
+                bannerTextStyle: widget.moreEventsBannerTextStyle,
               ),
             ));
           }
