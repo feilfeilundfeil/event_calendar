@@ -7,26 +7,30 @@ import 'package:flutter/material.dart';
 
 class EventCalendar extends StatefulWidget {
   EventCalendar({
-    this.weekDays,
-    this.calendarSize,
-    this.previous,
-    this.next,
-    this.headerStyle,
     this.onMoreEventsTapped,
+    this.weekDays,
     this.events,
+    this.previousIcon,
+    this.nextIcon,
+    this.headerStyle,
     this.moreEventsBannerTextStyle,
+    this.weekdaysHeaderTextStyle,
+    this.weekdaysBackgroundColor,
     this.moreEventsBackgroundColor,
+    this.calendarSize,
   });
 
-  final List<String> weekDays;
-  final Size calendarSize;
-  final Widget previous;
-  final Widget next;
-  final TextStyle headerStyle;
   final VoidCallback onMoreEventsTapped;
+  final List<String> weekDays;
   final List<EventModel> events;
+  final Widget previousIcon;
+  final Widget nextIcon;
+  final TextStyle headerStyle;
   final TextStyle moreEventsBannerTextStyle;
+  final TextStyle weekdaysHeaderTextStyle;
+  final Color weekdaysBackgroundColor;
   final Color moreEventsBackgroundColor;
+  final Size calendarSize;
 
   @override
   _EventCalendarState createState() => _EventCalendarState();
@@ -110,7 +114,7 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
                     curve: Curves.easeInOut,
                   );
                 },
-                child: widget.previous ??
+                child: widget.previousIcon ??
                     Icon(
                       Icons.arrow_left_rounded,
                       size: 50,
@@ -127,7 +131,7 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
                     curve: Curves.easeInOut,
                   );
                 },
-                child: widget.next ??
+                child: widget.nextIcon ??
                     Icon(
                       Icons.arrow_right_rounded,
                       size: 50,
@@ -137,7 +141,7 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 12.0),
-            color: Color(0xff509D56),
+            color: widget.weekdaysBackgroundColor ?? Color(0xff509D56),
             child: Row(
               children: <Widget>[
                 for (String day in _weekDays)
@@ -147,7 +151,7 @@ class _EventCalendarState extends State<EventCalendar> with SingleTickerProvider
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
                         day,
-                        style: textTheme.bodyText2.copyWith(color: Colors.white),
+                        style: widget.weekdaysHeaderTextStyle ?? textTheme.bodyText2.copyWith(color: Colors.white),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         textAlign: TextAlign.center,
